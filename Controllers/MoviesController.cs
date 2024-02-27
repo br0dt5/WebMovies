@@ -24,5 +24,15 @@ namespace WebMovies.Controllers
         {
             return View(await _context.Movies.ToListAsync());
         }
+
+        // POST: Movies
+        [HttpPost, ActionName("Index")]
+        public async Task<IActionResult> Search(string searchString)
+        {
+            return View(await _context.Movies
+                                        .Where(m => m.Name!
+                                        .Contains(searchString, StringComparison.InvariantCultureIgnoreCase))
+                                        .ToListAsync());
+        }
     }
 }

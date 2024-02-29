@@ -29,9 +29,15 @@ namespace WebMovies.Controllers
         [HttpPost, ActionName("Index")]
         public async Task<IActionResult> Search(string searchString)
         {
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             return View(await _context.Movies
                                         .Where(m => m.Name!
-                                        .Contains(searchString, StringComparison.InvariantCultureIgnoreCase))
+                                        .ToLower()
+                                        .Contains(searchString.ToLower()))
                                         .ToListAsync());
         }
 

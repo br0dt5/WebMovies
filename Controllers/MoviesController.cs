@@ -34,5 +34,12 @@ namespace WebMovies.Controllers
                                         .Contains(searchString, StringComparison.InvariantCultureIgnoreCase))
                                         .ToListAsync());
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            return View(await _context.Movies
+                                        .Where(m => m.Id == id)
+                                        .FirstOrDefaultAsync());
+        }
     }
 }

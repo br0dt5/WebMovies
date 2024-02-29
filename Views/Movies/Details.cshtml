@@ -1,0 +1,20 @@
+@model WebMovies.Models.Movie
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h1>@Html.DisplayFor(model => model.Name)</h1>
+    <hr />
+    <p>@Html.DisplayNameFor(model => model.Synopsis)</p>
+    <p>@Html.DisplayFor(model => model.Synopsis)</p>
+    <p>@Html.DisplayNameFor(model => model.Director)</p>
+    <p>@Html.DisplayFor(model => model.Director)</p>
+    <p>@Html.DisplayNameFor(model => model.ReleaseDate)</p>
+    <p>@Html.DisplayFor(model => model.ReleaseDate)</p>
+    <p>@Html.DisplayNameFor(model => model.Cast)</p>
+    <p>@Html.DisplayFor(model => model.Cast)</p>
+    <p>@Html.DisplayNameFor(model => model.Keywords)</p>
+    <p>@Html.DisplayFor(model => model.Keywords)</p>
+</div>

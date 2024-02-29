@@ -23,6 +23,7 @@
                 <div class="card-header">@Html.DisplayFor(modelItem => item.Name)</div>
                 <div class="card-body">
                     <div class="card-text">@Html.DisplayFor(modelItem => item.Synopsis)</div>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="stretched-link"></a>
                 </div>
                 <div class="card-footer">@Html.DisplayFor(modelItem => item.Director)</div>
             </div>

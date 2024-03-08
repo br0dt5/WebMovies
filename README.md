@@ -1,11 +1,8 @@
-# About
-Simple webpage capabable of listing a vast collection of informtions about movies.
+# ℹ️About
+A simple website to search and find informations about many different movies. The users may also share a review or simply add them to their favorites playlist.
 
-## Technologies
+## 🧰Technologies
 - .NET/C#;
-- ASP.NET Core/Razor;
-- EntityFrameworkCore;
-- SQLite;
-
-## Project info
-[Jira](www.atlassian.com)
+- ASP.NET Core;
+- EntityFramework Core;
+- Bootstrap.

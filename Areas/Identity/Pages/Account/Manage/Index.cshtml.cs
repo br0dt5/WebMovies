@@ -100,6 +100,15 @@ namespace WebMovies.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            user.FullName = Input.FullName;
+
+            var result = _userManager.UpdateAsync(user);
+            if (!result.IsCompletedSuccessfully)
+            {
+                StatusMessage = "Unexpected error when trying to update user data.";
+                return RedirectToPage();
+            }
+
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

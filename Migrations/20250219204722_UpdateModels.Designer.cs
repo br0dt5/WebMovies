@@ -8,17 +8,17 @@ using WebMovies.Data;
 
 #nullable disable
 
-namespace WebMovies.Data.Migrations
+namespace WebMovies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240716195340_AddUserModel")]
-    partial class AddUserModel
+    [Migration("20250219204722_UpdateModels")]
+    partial class UpdateModels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -157,6 +157,9 @@ namespace WebMovies.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("AboutMe")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
@@ -197,6 +200,9 @@ namespace WebMovies.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ProfilePicture")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
@@ -231,10 +237,14 @@ namespace WebMovies.Data.Migrations
                     b.Property<string>("Director")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Keywords")
+                    b.Property<string>("Genre")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Poster")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ReleaseDate")
@@ -243,7 +253,17 @@ namespace WebMovies.Data.Migrations
                     b.Property<string>("Synopsis")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Movies");
                 });
@@ -297,6 +317,24 @@ namespace WebMovies.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebMovies.Models.Movie", b =>
+                {
+                    b.HasOne("WebMovies.Data.User", null)
+                        .WithMany("FavMovies")
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("WebMovies.Data.User", null)
+                        .WithMany("Watchlist")
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("WebMovies.Data.User", b =>
+                {
+                    b.Navigation("FavMovies");
+
+                    b.Navigation("Watchlist");
                 });
 #pragma warning restore 612, 618
         }

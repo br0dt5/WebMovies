@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using WebMovies.Models;
 
 namespace WebMovies.Data
 {
@@ -6,5 +7,9 @@ namespace WebMovies.Data
     {
         [PersonalData]
         public string? FullName { get; set; }
+        public string? ProfilePicture { get; set; }
+        public string? AboutMe { get; set; }
+        public List<Movie> FavMovies { get; set; } = new List<Movie>();
+        public List<Movie> Watchlist { get; set; } = new List<Movie>();
     }
 }

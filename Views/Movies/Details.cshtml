@@ -18,4 +18,22 @@
     <p>@Html.DisplayFor(model => model.Cast)</p>
     <p>@Html.DisplayNameFor(model => model.Genre)</p>
     <p>@Html.DisplayFor(model => model.Genre)</p>
+    <div class="row">
+        <div class="col-2">
+            <form method="post" asp-action="Details">
+                <input type="hidden" name="Playlist" value="Favorites" />
+                <button type="submit" class="btn btn-primary">
+                    Add to Favorites
+                </button>
+            </form>
+        </div>
+        <div class="col">
+            <form method="post" asp-action="Details">
+                <input type="hidden" name="Playlist" value="Watchlist" />
+                <button type="submit" class="btn btn-primary">
+                    Add to Watchlist
+                </button>
+            </form>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,26 @@
+﻿@page
+@model WebMovies.Areas.Identity.Pages.Account.Manage.UserPlaylistsModel
+@{
+    ViewData["Title"] = "My Playlists";
+    ViewData["ActivePage"] = ManageNavPages.UserPlaylists;
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<div class="row">
+    <h4>Favorites</h4>
+    @foreach (var movie in Model.UserFavorites)
+    {
+        <div class="col-3 my-2">
+            <img src="@Html.DisplayFor(m => movie.Poster)" class="img-fluid rounded" />
+        </div>
+    }
+    <br />
+    <h4>Watchlist</h4>
+    @foreach (var movie in Model.UserWatchlist)
+    {
+        <div class="col-3 my-2">
+            <img src="@Html.DisplayFor(m => movie.Poster)" class="img-fluid rounded" />
+        </div>
+    }
+</div>

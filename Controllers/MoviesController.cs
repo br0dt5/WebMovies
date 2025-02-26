@@ -55,7 +55,7 @@ namespace WebMovies.Controllers
         }
 
         [HttpPost, ActionName("Details")]
-        public async Task<IActionResult> SaveToPlaylist(int id)
+        public async Task<IActionResult> SaveToPlaylist(int id, string playlist)
         {
             var user = await _userManager.GetUserAsync(User);
             var movie = await _context.Movies
@@ -67,7 +67,14 @@ namespace WebMovies.Controllers
                 return RedirectToAction("Index");
             }
 
-            user.Watchlist.Add(movie);
+            if (playlist.Equals("Favorites"))
+            {
+                user.FavMovies.Add(movie);
+            }
+            else if (playlist.Equals("Watchlist"))
+            {
+                user.Watchlist.Add(movie);
+            }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

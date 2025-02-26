@@ -18,4 +18,7 @@
     <p>@Html.DisplayFor(model => model.Cast)</p>
     <p>@Html.DisplayNameFor(model => model.Genre)</p>
     <p>@Html.DisplayFor(model => model.Genre)</p>
+    <form method="post" asp-action="Details">
+        <button type="submit" class="btn btn-primary">Add to Watchlist</button>
+    </form>
 </div>

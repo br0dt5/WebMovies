@@ -13,5 +13,8 @@ public class Movie
     [DataType(DataType.Date)]
     public DateTime? ReleaseDate { get; set; }
     public string? Cast { get; set; }
+    public string? Trailer { get; set; }
+    public float Score { get; set; }
+    public List<Rating> Ratings { get; set; } = [];
     public string? Poster { get; set; }
 }

@@ -11,5 +11,6 @@ namespace WebMovies.Data
         public string? AboutMe { get; set; }
         public List<Movie> FavMovies { get; set; } = new List<Movie>();
         public List<Movie> Watchlist { get; set; } = new List<Movie>();
+        public List<Rating> Ratings { get; set; } = new List<Rating>();
     }
 }

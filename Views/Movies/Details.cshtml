@@ -4,36 +4,73 @@
     ViewData["Title"] = "Details";
 }
 
-<div>
-    <h1>@Html.DisplayFor(model => model.Name)</h1>
-    <hr />
-    <img src="@Html.DisplayFor(model => model.Poster)" />
-    <p>@Html.DisplayNameFor(model => model.Synopsis)</p>
-    <p>@Html.DisplayFor(model => model.Synopsis)</p>
-    <p>@Html.DisplayNameFor(model => model.Director)</p>
-    <p>@Html.DisplayFor(model => model.Director)</p>
-    <p>@Html.DisplayNameFor(model => model.ReleaseDate)</p>
-    <p>@Html.DisplayFor(model => model.ReleaseDate)</p>
-    <p>@Html.DisplayNameFor(model => model.Cast)</p>
-    <p>@Html.DisplayFor(model => model.Cast)</p>
-    <p>@Html.DisplayNameFor(model => model.Genre)</p>
-    <p>@Html.DisplayFor(model => model.Genre)</p>
-    <div class="row">
-        <div class="col-2">
-            <form method="post" asp-action="Details">
-                <input type="hidden" name="Playlist" value="Favorites" />
-                <button type="submit" class="btn btn-primary">
-                    Add to Favorites
-                </button>
-            </form>
+<div class="d-flex mt-5">
+    <div>
+        <img src="@Html.DisplayFor(model => model.Poster)" alt="@Html.DisplayFor(model => model.Name)" style="width: 480px" />
+    </div>
+    <div class="flex-grow-1 ms-4">
+        <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+                <p class="h1 mb-0" style="line-height: 100%">@Html.DisplayFor(model => model.Name)</p>
+                <p class="small">@Html.DisplayFor(model => model.ReleaseDate)</p>
+            </div>
+            <div class="mt-1">
+                <p class="h3 d-inline">@Html.DisplayNameFor(model => model.Score): </p>
+                <p class="h3 d-inline">@Html.DisplayFor(model => model.Score)</p>
+            </div>
         </div>
-        <div class="col">
-            <form method="post" asp-action="Details">
-                <input type="hidden" name="Playlist" value="Watchlist" />
-                <button type="submit" class="btn btn-primary">
-                    Add to Watchlist
-                </button>
+        <p class="">@Html.DisplayFor(model => model.Genre)</p>
+        <article>
+            <p class="d-inline fw-bold">@Html.DisplayNameFor(model => model.Synopsis)</p>
+            <p>@Html.DisplayFor(model => model.Synopsis)</p>
+        </article>
+        <article>
+            <p class="d-inline fw-bold">@Html.DisplayNameFor(model => model.Director)</p>
+            <p>@Html.DisplayFor(model => model.Director)</p>
+        </article>
+        <article>
+            <p class="d-inline fw-bold">@Html.DisplayNameFor(model => model.ReleaseDate)</p>
+            <p>@Html.DisplayFor(model => model.ReleaseDate)</p>
+        </article>
+        <article>
+            <p class="d-inline fw-bold">@Html.DisplayNameFor(model => model.Cast)</p>
+            <p>@Html.DisplayFor(model => model.Cast)</p>
+        </article>
+        <div class="d-flex gap-2">
+            <form method="post">
+                <input asp-for="Id" type="hidden" />
+                <div class="d-flex gap-2">
+                    <button asp-action="SaveToFavorites" type="submit" class="btn btn-primary">
+                        Add to Favorites
+                    </button>
+                    <button asp-action="SaveToWatchlist" type="submit" class="btn btn-primary">
+                        Add to Watchlist
+                    </button>
+                </div>
             </form>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ratingModal">
+                Add Rating
+            </button>
+        </div>
+        <div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ratingModalLabel">Rate movie</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="ratingForm" method="post" asp-action="AddRating">
+                            <div class="form-group">
+                                <label class="control-label">Rating</label>
+                                <input type="number" class="form-control" id="score" name="score" min="1" max="10" required placeholder="Movie score (1-10)">
+                            </div>
+                            <input type="hidden" asp-for="Id" />
+                            <button type="submit" class="btn btn-primary mt-2">Add Rating</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

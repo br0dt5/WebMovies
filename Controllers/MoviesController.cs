@@ -54,8 +54,8 @@ namespace WebMovies.Controllers
                                         .FirstOrDefaultAsync());
         }
 
-        [HttpPost, ActionName("Details")]
-        public async Task<IActionResult> SaveToPlaylist(int id, string playlist)
+        [HttpPost]
+        public async Task<IActionResult> SaveToFavorites(int id)
         {
             var user = await _userManager.GetUserAsync(User);
             var movie = await _context.Movies
@@ -67,14 +67,51 @@ namespace WebMovies.Controllers
                 return RedirectToAction("Index");
             }
 
-            if (playlist.Equals("Favorites"))
+            user.FavMovies.Add(movie);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveToWatchlist(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var movie = await _context.Movies
+                                        .Where(m => m.Id == id)
+                                        .FirstOrDefaultAsync();
+
+            if (user == null || movie == null)
             {
-                user.FavMovies.Add(movie);
+                return RedirectToAction("Index");
             }
-            else if (playlist.Equals("Watchlist"))
+
+            user.Watchlist.Add(movie);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRating(int id, int score)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var movie = await _context.Movies
+                                        .Where(m => m.Id == id)
+                                        .Include(m => m.Ratings)
+                                        .FirstOrDefaultAsync();
+
+            if (user == null || movie == null)
             {
-                user.Watchlist.Add(movie);
+                return RedirectToAction("Index");
             }
+
+            var rating = new Rating { Score = score };
+
+            user.Ratings.Add(rating);
+            movie.Ratings.Add(rating);
+
+            movie.Score = movie.Ratings.Average(r => r.Score);
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

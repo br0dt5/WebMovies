@@ -1,31 +1,33 @@
 @model IEnumerable<WebMovies.Models.Movie>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Movies";
 }
 
-<br />
-<form asp-action="Index">
-    <div class="offset-md-3 row rounded-pill">
-        <div class="col-md-6">
-            <input type="text" name="searchString" class="form-control" />
+<h1 class="fw-semibold mt-4">All Movies</h1>
+<form method="get">
+    <div class="row">
+        <div class="col-5">
+            <input type="text" name="SearchString" class="form-control rounded ms-2" placeholder="Search..." />
         </div>
-        <input type="submit" class="btn btn-primary col-md-1" value="Search" />
+        <div class="col-1">
+            <button asp-action="Search" type="submit" class="btn btn-primary">
+                Search
+            </button>
+        </div>
     </div>
 </form>
 <br />
 
-<div class="row row-cols g-2">
+<div class="row row-cols-5 g-3 px-3">
     @foreach (var item in Model)
     {
-        <div class="col-3">
-            <div class="card border-dark h-100">
-                <div class="card-header">@Html.DisplayFor(modelItem => item.Name)</div>
-                <div class="card-body">
-                    <div class="card-text">@Html.DisplayFor(modelItem => item.Synopsis)</div>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="stretched-link"></a>
-                </div>
-                <div class="card-footer">@Html.DisplayFor(modelItem => item.Director)</div>
+        <div class="col">
+            <div class="card">
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img src="@item.Poster" class="card-img"
+                         alt="@item.Name Cover" />
+                </a>
             </div>
         </div>
     }

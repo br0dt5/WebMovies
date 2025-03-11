@@ -17,4 +17,6 @@ public class Movie
     public float Score { get; set; }
     public List<Rating> Ratings { get; set; } = [];
     public string? Poster { get; set; }
+    public int Duration { get; set; }
+    public string? Keywords { get; set; }
 }

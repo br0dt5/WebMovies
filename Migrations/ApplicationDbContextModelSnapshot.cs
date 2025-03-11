@@ -234,7 +234,13 @@ namespace WebMovies.Migrations
                     b.Property<string>("Director")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Duration")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Genre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Keywords")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")

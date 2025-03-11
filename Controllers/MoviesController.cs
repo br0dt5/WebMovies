@@ -22,26 +22,35 @@ namespace WebMovies.Controllers
             _userManager = userManager;
         }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; } = string.Empty;
+
         // GET: Movies
         public async Task<IActionResult> Index()
         {
             return View(await _context.Movies.ToListAsync());
         }
 
-        // POST: Movies
-        [HttpPost, ActionName("Index")]
-        public async Task<IActionResult> Search(string searchString)
+        public async Task<IActionResult> Search()
         {
-            if (string.IsNullOrEmpty(searchString))
+            if (string.IsNullOrEmpty(SearchString))
             {
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                SearchString = SearchString.ToLower();
+            }
 
-            return View(await _context.Movies
-                                        .Where(m => m.Name!
-                                        .ToLower()
-                                        .Contains(searchString.ToLower()))
-                                        .ToListAsync());
+            var results = _context.Movies.Where(m => m.Name.ToLower().Contains(SearchString) ||
+                                                    m.Genre!.ToLower().Contains(SearchString) ||
+                                                    m.Director!.ToLower().Contains(SearchString) ||
+                                                    m.Cast!.ToLower().Contains(SearchString) ||
+                                                    m.Synopsis!.ToLower().Contains(SearchString) ||
+                                                    m.Keywords!.ToLower().Contains(SearchString))
+                                        .ToListAsync();
+
+            return View("Index", await results);
         }
 
         [HttpGet]

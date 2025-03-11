@@ -5,14 +5,18 @@
 }
 
 <div class="d-flex mt-5">
-    <div>
-        <img src="@Html.DisplayFor(model => model.Poster)" alt="@Html.DisplayFor(model => model.Name)" style="width: 480px" />
+    <div style="width: 480px;">
+        <img src="@Html.DisplayFor(model => model.Poster)" alt="@Html.DisplayFor(model => model.Name)" class="rounded-3 img-fluid" />
     </div>
     <div class="flex-grow-1 ms-4">
         <div class="d-flex align-items-start">
             <div class="flex-grow-1">
-                <p class="h1 mb-0" style="line-height: 100%">@Html.DisplayFor(model => model.Name)</p>
-                <p class="small">@Html.DisplayFor(model => model.ReleaseDate)</p>
+                <h1 class="mb-0 fw-semibold" style="line-height: 100%">@Html.DisplayFor(model => model.Name)</h1>
+                @{
+                    var movieDuration = Model.Duration;
+
+                    <p class="small ms-1 d-inline">@Html.DisplayFor(model => model.ReleaseDate) - </p><p class="small d-inline-block">@(@movieDuration / 60)h @(@movieDuration % 60)m</p>
+                }
             </div>
             <div class="mt-1">
                 <p class="h3 d-inline">@Html.DisplayNameFor(model => model.Score): </p>
